@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Control de Proyectos</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Control de Proyectos</h1>
+        <input type="text" id="search" placeholder="Buscar proyectos...">
+        <select id="filter">
+            <option value="">Filtrar por tipo</option>
+            <option value="SERVIU">SERVIU</option>
+            <option value="Calicatas">Calicatas</option>
+            <option value="Vialidad">Vialidad</option>
+            <option value="DOH">DOH</option>
+            <option value="Canalistas">Canalistas</option>
+            <option value="SEREMITT">SEREMITT</option>
+        </select>
+        <button onclick="showAdminLogin()">Iniciar Sesión Administrador</button>
+        <table id="projectsTable">
+            <thead>
+                <tr>
+                    <th>N° Carpeta</th>
+                    <th>Nombre del Proyecto</th>
+                    <th>Mandante</th>
+                    <th>Solicitante</th>
+                    <th>Fecha de Asignación</th>
+                    <th>Fecha de Entrega</th>
+                    <th>Estado Actual</th>
+                    <th>Observaciones</th>
+                </tr>
+            </thead>
+            <tbody id="projectsBody">
+                <!-- Los proyectos se llenarán aquí -->
+            </tbody>
+        </table>
+    </div>
+
+    <div id="adminLogin" style="display:none;">
+        <h2>Iniciar Sesión Administrador</h2>
+        <input type="password" id="adminPassword" placeholder="Contraseña">
+        <button onclick="loginAdmin()">Entrar</button>
+    </div>
+
+    <div id="adminPanel" style="display:none;">
+        <h2>Agregar Nuevo Proyecto</h2>
+        <input type="text" id="newFolderNumber" placeholder="N° Carpeta">
+        <input type="text" id="newProjectName" placeholder="Nombre del Proyecto">
+        <input type="text" id="newClient" placeholder="Mandante">
+        <input type="text" id="newRequester" placeholder="Solicitante">
+        <input type="date" id="newAssignmentDate" placeholder="Fecha de Asignación">
+        <input type="date" id="newDeliveryDate" placeholder="Fecha de Entrega">
+        <input type="text" id="newStatus" placeholder="Estado Actual">
+        <input type="text" id="newObservations" placeholder="Observaciones">
+        <button onclick="addProject()">Agregar Proyecto</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
