@@ -1,112 +1,56 @@
-// Importar Firebase
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-
-// Configuración de Firebase (debes reemplazar con tus credenciales de Firebase)
-const firebaseConfig = {
-    apiKey: "AIzaSyCjor19MmoueQqxTLzR4bPrEvJpUlpTMio",
-    authDomain: "controproyectos.firebaseapp.com",
-    projectId: "controproyectos",
-    storageBucket: "controproyectos.firebasestorage.app",
-    messagingSenderId: "292870634559",
-    appId: "1:292870634559:web:359c76c384d0b14ebbcc8a"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-let isAdmin = sessionStorage.getItem("isAdmin") === "true";
-
+// Definir la función showAdminLogin() para mostrar el formulario de login del administrador
 function showAdminLogin() {
+    // Mostrar la sección de login y ocultar el panel de administración
     document.getElementById("adminLogin").style.display = "block";
+    document.getElementById("adminPanel").style.display = "none";
 }
 
+// Función para iniciar sesión como administrador
 function loginAdmin() {
-    const password = document.getElementById("adminPassword").value;
-    const correctPassword = "admin123"; // Puedes cambiar esta contraseña por una más segura
+    // Obtener la contraseña ingresada por el administrador
+    const adminPassword = document.getElementById("adminPassword").value;
 
-    if (password === correctPassword) {
-        isAdmin = true;
-        sessionStorage.setItem("isAdmin", "true");
+    // Aquí debes reemplazar 'admin123' por la contraseña real
+    const correctPassword = "admin123"; // Cambiar por la contraseña real
+
+    // Verificar si la contraseña es correcta
+    if (adminPassword === correctPassword) {
+        // Mostrar el panel de administración y ocultar el login
+        document.getElementById("adminPanel").style.display = "block";
         document.getElementById("adminLogin").style.display = "none";
-        document.getElementById("adminPanel").style.display = "block";
-        alert("Acceso concedido.");
-        loadProjects();
     } else {
-        alert("Contraseña incorrecta.");
+        // Si la contraseña es incorrecta, mostrar un mensaje de error
+        alert("Contraseña incorrecta");
     }
 }
 
-function checkAdminStatus() {
-    if (isAdmin) {
-        document.getElementById("adminPanel").style.display = "block";
-    }
-}
+// Función para agregar un nuevo proyecto
+function addProject() {
+    const folderNumber = document.getElementById("newFolderNumber").value;
+    const projectName = document.getElementById("newProjectName").value;
+    const client = document.getElementById("newClient").value;
+    const requester = document.getElementById("newRequester").value;
+    const assignmentDate = document.getElementById("newAssignmentDate").value;
+    const deliveryDate = document.getElementById("newDeliveryDate").value;
+    const status = document.getElementById("newStatus").value;
+    const observations = document.getElementById("newObservations").value;
 
-async function addProject() {
-    if (!isAdmin) {
-        alert("No tienes permisos para agregar proyectos.");
-        return;
-    }
+    // Crear una nueva fila en la tabla con los valores del proyecto
+    const table = document.getElementById("projectsTable");
+    const newRow = table.insertRow();
+    newRow.innerHTML = `
+        <td>${folderNumber}</td>
+        <td>${projectName}</td>
+        <td>${client}</td>
+        <td>${requester}</td>
+        <td>${assignmentDate}</td>
+        <td>${deliveryDate}</td>
+        <td>${status}</td>
+        <td>${observations}</td>
+        <td><button onclick="deleteProject(this)">Eliminar</button></td>
+    `;
 
-    const newProject = {
-        folderNumber: document.getElementById("newFolderNumber").value,
-        projectName: document.getElementById("newProjectName").value,
-        client: document.getElementById("newClient").value,
-        requester: document.getElementById("newRequester").value,
-        assignmentDate: document.getElementById("newAssignmentDate").value,
-        deliveryDate: document.getElementById("newDeliveryDate").value,
-        status: document.getElementById("newStatus").value,
-        observations: document.getElementById("newObservations").value
-    };
-
-    try {
-        await addDoc(collection(db, "projects"), newProject);
-        alert("Proyecto agregado correctamente.");
-        clearForm();
-        loadProjects();
-    } catch (error) {
-        alert("Error al agregar el proyecto: " + error);
-    }
-}
-
-async function deleteProject(id) {
-    if (!isAdmin) {
-        alert("No tienes permisos para eliminar proyectos.");
-        return;
-    }
-    try {
-        await deleteDoc(doc(db, "projects", id));
-        alert("Proyecto eliminado.");
-        loadProjects();
-    } catch (error) {
-        alert("Error al eliminar el proyecto: " + error);
-    }
-}
-
-async function loadProjects() {
-    const table = document.getElementById("projectsBody");
-    table.innerHTML = "";
-    const querySnapshot = await getDocs(collection(db, "projects"));
-
-    querySnapshot.forEach((doc) => {
-        const project = doc.data();
-        const row = table.insertRow();
-        row.innerHTML = `
-            <td>${project.folderNumber}</td>
-            <td>${project.projectName}</td>
-            <td>${project.client}</td>
-            <td>${project.requester}</td>
-            <td>${project.assignmentDate}</td>
-            <td>${project.deliveryDate}</td>
-            <td>${project.status}</td>
-            <td>${project.observations}</td>
-            <td><button onclick="deleteProject('${doc.id}')">Eliminar</button></td>
-        `;
-    });
-}
-
-function clearForm() {
+    // Limpiar los campos después de agregar el proyecto
     document.getElementById("newFolderNumber").value = "";
     document.getElementById("newProjectName").value = "";
     document.getElementById("newClient").value = "";
@@ -117,7 +61,8 @@ function clearForm() {
     document.getElementById("newObservations").value = "";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    checkAdminStatus();
-    loadProjects();
-});
+// Función para eliminar un proyecto de la tabla
+function deleteProject(button) {
+    const row = button.closest("tr");
+    row.remove();
+}
