@@ -13,6 +13,7 @@ function loginAdmin() {
         document.getElementById("adminLogin").style.display = "none";
         document.getElementById("adminPanel").style.display = "block";
         alert("Acceso concedido.");
+        loadProjects();
     } else {
         alert("Contraseña incorrecta.");
     }
@@ -38,33 +39,57 @@ function addProject() {
         return;
     }
 
-    const table = document.getElementById("projectsBody");
-    const row = table.insertRow();
+    const newProject = {
+        folderNumber,
+        projectName,
+        client,
+        requester,
+        assignmentDate,
+        deliveryDate,
+        status,
+        observations
+    };
 
-    row.innerHTML = `
-        <td>${folderNumber}</td>
-        <td>${projectName}</td>
-        <td>${client}</td>
-        <td>${requester}</td>
-        <td>${assignmentDate}</td>
-        <td>${deliveryDate}</td>
-        <td>${status}</td>
-        <td>${observations}</td>
-        <td><button onclick="deleteProject(this)">Eliminar</button></td>
-    `;
+    let projects = JSON.parse(localStorage.getItem("projects")) || [];
+    projects.push(newProject);
+    localStorage.setItem("projects", JSON.stringify(projects));
 
     alert("Proyecto agregado correctamente.");
     clearForm();
+    loadProjects();
 }
 
-function deleteProject(button) {
+function deleteProject(index) {
     if (!isAdmin) {
         alert("No tienes permisos para eliminar proyectos.");
         return;
     }
-    const row = button.parentNode.parentNode;
-    row.parentNode.removeChild(row);
+    let projects = JSON.parse(localStorage.getItem("projects")) || [];
+    projects.splice(index, 1);
+    localStorage.setItem("projects", JSON.stringify(projects));
     alert("Proyecto eliminado.");
+    loadProjects();
+}
+
+function loadProjects() {
+    const table = document.getElementById("projectsBody");
+    table.innerHTML = "";
+    let projects = JSON.parse(localStorage.getItem("projects")) || [];
+
+    projects.forEach((project, index) => {
+        const row = table.insertRow();
+        row.innerHTML = `
+            <td>${project.folderNumber}</td>
+            <td>${project.projectName}</td>
+            <td>${project.client}</td>
+            <td>${project.requester}</td>
+            <td>${project.assignmentDate}</td>
+            <td>${project.deliveryDate}</td>
+            <td>${project.status}</td>
+            <td>${project.observations}</td>
+            <td><button onclick="deleteProject(${index})">Eliminar</button></td>
+        `;
+    });
 }
 
 function clearForm() {
@@ -77,3 +102,6 @@ function clearForm() {
     document.getElementById("newStatus").value = "";
     document.getElementById("newObservations").value = "";
 }
+
+document.addEventListener("DOMContentLoaded", loadProjects);
+
