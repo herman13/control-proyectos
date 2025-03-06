@@ -121,3 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
     checkAdminStatus();
     loadProjects();
 });
+
+    checkAdminStatus();
+    loadProjects();
+});
