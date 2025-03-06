@@ -9,14 +9,13 @@ const firebaseConfig = {
     projectId: "controproyectos",
     storageBucket: "controproyectos.firebasestorage.app",
     messagingSenderId: "292870634559",
-    appId: "1:292870634559:web:359c76c384d0b14ebbcc8a",
-    measurementId: "G-80Z8SZFB15"
+    appId: "1:292870634559:web:359c76c384d0b14ebbcc8a"
 };
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let isAdmin = false;
+let isAdmin = sessionStorage.getItem("isAdmin") === "true";
 
 function showAdminLogin() {
     document.getElementById("adminLogin").style.display = "block";
@@ -28,12 +27,19 @@ function loginAdmin() {
 
     if (password === correctPassword) {
         isAdmin = true;
+        sessionStorage.setItem("isAdmin", "true");
         document.getElementById("adminLogin").style.display = "none";
         document.getElementById("adminPanel").style.display = "block";
         alert("Acceso concedido.");
         loadProjects();
     } else {
         alert("Contraseña incorrecta.");
+    }
+}
+
+function checkAdminStatus() {
+    if (isAdmin) {
+        document.getElementById("adminPanel").style.display = "block";
     }
 }
 
@@ -111,4 +117,7 @@ function clearForm() {
     document.getElementById("newObservations").value = "";
 }
 
-document.addEventListener("DOMContentLoaded", loadProjects);
+document.addEventListener("DOMContentLoaded", () => {
+    checkAdminStatus();
+    loadProjects();
+});
