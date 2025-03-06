@@ -4,38 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control de Proyectos</title>
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hidden {
+            display: none;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #project-form, #projects-list {
+            margin-top: 20px;
+        }
+        #projects-list li {
+            margin: 5px 0;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Gestión de Proyectos</h1>
-        
-        <!-- Formulario de autenticación -->
-        <div id="login-form">
-            <input type="password" id="admin-password" placeholder="Contraseña de administrador">
-            <button onclick="login()">Ingresar</button>
-        </div>
 
-        <!-- Formulario de agregar proyecto -->
-        <div id="project-form" class="hidden">
-            <input type="text" id="project-name" placeholder="Nombre del Proyecto">
-            <input type="text" id="client" placeholder="Mandante">
-            <input type="text" id="requester" placeholder="Solicitante">
-            <input type="date" id="delivery-date">
-            <textarea id="project-details" placeholder="Detalles del Proyecto"></textarea>
-            <button onclick="addProject()">Agregar Proyecto</button>
-        </div>
+    <h1>Control de Proyectos</h1>
 
-        <!-- Lista de proyectos -->
-        <div id="projects-list" class="hidden">
-            <h2>Proyectos</h2>
-            <ul id="projects"></ul>
-        </div>
+    <!-- Formulario de Login para Administrador -->
+    <div id="login-form">
+        <h2>Login de Administrador</h2>
+        <input type="password" id="admin-password" placeholder="Contraseña" />
+        <button onclick="login()">Ingresar</button>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+    <!-- Formulario para agregar proyectos (visible solo para administrador) -->
+    <div id="project-form" class="hidden">
+        <h2>Agregar Proyecto</h2>
+        <input type="text" id="project-name" placeholder="Nombre del Proyecto" />
+        <input type="text" id="client" placeholder="Nombre del Cliente" />
+        <input type="text" id="requester" placeholder="Solicitante" />
+        <input type="date" id="delivery-date" placeholder="Fecha de Entrega" />
+        <textarea id="project-details" placeholder="Detalles del Proyecto"></textarea>
+        <button onclick="addProject()">Agregar Proyecto</button>
+    </div>
+
+    <!-- Lista de proyectos -->
+    <div id="projects-list" class="hidden">
+        <h2>Lista de Proyectos</h2>
+        <ul id="projects"></ul>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.2/firebase-auth.js"></script>
+
+    <!-- Tu script -->
     <script src="script.js"></script>
 </body>
 </html>
