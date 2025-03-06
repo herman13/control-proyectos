@@ -106,45 +106,4 @@ function loginAdmin() {
 }
 
 // Función para buscar proyectos
-document.getElementById('search').addEventListener('input', function() {
-    const searchTerm = this.value.toLowerCase();
-    const filteredProjects = projects.filter(project => 
-        project.projectName.toLowerCase().includes(searchTerm) ||
-        project.client.toLowerCase().includes(searchTerm) ||
-        project.requester.toLowerCase().includes(searchTerm)
-    );
-    displayFilteredProjects(filteredProjects);
-});
-
-// Función para filtrar proyectos por tipo
-document.getElementById('filter').addEventListener('change', function() {
-    const filterValue = this.value;
-    const filteredProjects = filterValue ? projects.filter(project => project.client === filterValue) : projects;
-    displayFilteredProjects(filteredProjects);
-});
-
-// Función para mostrar proyectos filtrados
-function displayFilteredProjects(filteredProjects) {
-    const projectsBody = document.getElementById('projectsBody');
-    projectsBody.innerHTML = '';
-    filteredProjects.forEach((project, index) => {
-        const row = `<tr>
-            <td>${project.folderNumber}</td>
-            <td>${project.projectName}</td>
-            <td>${project.client}</td>
-            <td>${project.requester}</td>
-            <td>${project.assignmentDate}</td>
-            <td>${project.deliveryDate}</td>
-            <td>${project.status}</td>
-            <td>${project.observations}</td>
-            <td>
-                <button onclick="editProject(${index})">Editar</button>
-                <button onclick="deleteProject(${index})">Eliminar</button>
-            </td>
-        </tr>`;
-        projectsBody.innerHTML += row;
-    });
-}
-
-// Inicializar la tabla de proyectos al cargar la página
-window.onload = displayProjects;
+document.getElementById('search').addEventListener('input', function()
