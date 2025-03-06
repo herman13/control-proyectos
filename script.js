@@ -1,4 +1,4 @@
-// Configuración de Firebase
+// Configuración de Firebase con tu información
 const firebaseConfig = {
     apiKey: "AIzaSyCjor19MmoueQqxTLzR4bPrEvJpUlpTMio",
     authDomain: "controproyectos.firebaseapp.com",
@@ -75,6 +75,8 @@ function loadProjects() {
             li.appendChild(deleteButton);
             projectsList.appendChild(li);
         });
+    }).catch((error) => {
+        console.error("Error al cargar proyectos: " + error.message);
     });
 }
 
