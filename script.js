@@ -18,7 +18,7 @@ let adminAuthenticated = false;
 // Función de login de administrador
 function login() {
     const password = document.getElementById('admin-password').value;
-    if (password === "tu-contraseña-secreta") {
+    if (password === "codam123") {
         adminAuthenticated = true;
         document.getElementById('login-form').classList.add('hidden');
         document.getElementById('project-form').classList.remove('hidden');
