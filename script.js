@@ -17,10 +17,12 @@ const db = getFirestore(app);
 
 let isAdmin = sessionStorage.getItem("isAdmin") === "true";
 
+// Mostrar el formulario de inicio de sesión de administrador
 function showAdminLogin() {
     document.getElementById("adminLogin").style.display = "block";
 }
 
+// Función para iniciar sesión como administrador
 function loginAdmin() {
     const password = document.getElementById("adminPassword").value;
     const correctPassword = "admin123"; // Puedes cambiar esta contraseña por una más segura
@@ -37,12 +39,14 @@ function loginAdmin() {
     }
 }
 
+// Verificar si el usuario es administrador
 function checkAdminStatus() {
     if (isAdmin) {
         document.getElementById("adminPanel").style.display = "block";
     }
 }
 
+// Función para agregar un nuevo proyecto
 async function addProject() {
     if (!isAdmin) {
         alert("No tienes permisos para agregar proyectos.");
@@ -70,6 +74,7 @@ async function addProject() {
     }
 }
 
+// Función para eliminar un proyecto
 async function deleteProject(id) {
     if (!isAdmin) {
         alert("No tienes permisos para eliminar proyectos.");
@@ -84,6 +89,7 @@ async function deleteProject(id) {
     }
 }
 
+// Cargar todos los proyectos desde Firestore
 async function loadProjects() {
     const table = document.getElementById("projectsBody");
     table.innerHTML = "";
@@ -106,6 +112,7 @@ async function loadProjects() {
     });
 }
 
+// Limpiar el formulario después de agregar un proyecto
 function clearForm() {
     document.getElementById("newFolderNumber").value = "";
     document.getElementById("newProjectName").value = "";
@@ -117,11 +124,9 @@ function clearForm() {
     document.getElementById("newObservations").value = "";
 }
 
+// Asegurarse de que las funciones se ejecuten una vez que el documento esté cargado
 document.addEventListener("DOMContentLoaded", () => {
     checkAdminStatus();
     loadProjects();
 });
 
-    checkAdminStatus();
-    loadProjects();
-});
