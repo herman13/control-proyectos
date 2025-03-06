@@ -13,7 +13,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
-// Declarar la variable de autenticación antes de usarla
+// Declarar la variable de autenticación antes de cualquier función
 let adminAuthenticated = false;
 
 // Función de login de administrador
@@ -102,4 +102,3 @@ function editProject(id) {
         });
     }
 }
-
