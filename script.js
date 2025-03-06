@@ -1,7 +1,8 @@
+// Importar Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
 
-// Configuración de Firebase
+// Configuración de Firebase (debes reemplazar con tus credenciales de Firebase)
 const firebaseConfig = {
     apiKey: "AIzaSyCjor19MmoueQqxTLzR4bPrEvJpUlpTMio",
     authDomain: "controproyectos.firebaseapp.com",
@@ -16,12 +17,12 @@ const db = getFirestore(app);
 
 let isAdmin = sessionStorage.getItem("isAdmin") === "true";
 
-// Muestra el formulario de inicio de sesión de administrador
+// Función para mostrar el formulario de inicio de sesión de administrador
 function showAdminLogin() {
     document.getElementById("adminLogin").style.display = "block";
 }
 
-// Realiza el login de administrador
+// Función para iniciar sesión como administrador
 function loginAdmin() {
     const password = document.getElementById("adminPassword").value;
     const correctPassword = "admin123"; // Puedes cambiar esta contraseña por una más segura
@@ -38,14 +39,14 @@ function loginAdmin() {
     }
 }
 
-// Verifica si el usuario es administrador
+// Función para verificar el estado del administrador
 function checkAdminStatus() {
     if (isAdmin) {
         document.getElementById("adminPanel").style.display = "block";
     }
 }
 
-// Agregar un proyecto a Firestore
+// Función para agregar un nuevo proyecto
 async function addProject() {
     if (!isAdmin) {
         alert("No tienes permisos para agregar proyectos.");
@@ -73,7 +74,7 @@ async function addProject() {
     }
 }
 
-// Eliminar un proyecto de Firestore
+// Función para eliminar un proyecto
 async function deleteProject(id) {
     if (!isAdmin) {
         alert("No tienes permisos para eliminar proyectos.");
@@ -88,7 +89,7 @@ async function deleteProject(id) {
     }
 }
 
-// Cargar los proyectos desde Firestore
+// Función para cargar los proyectos desde Firebase
 async function loadProjects() {
     const table = document.getElementById("projectsBody");
     table.innerHTML = "";
@@ -111,7 +112,7 @@ async function loadProjects() {
     });
 }
 
-// Limpiar el formulario después de agregar un proyecto
+// Función para limpiar el formulario
 function clearForm() {
     document.getElementById("newFolderNumber").value = "";
     document.getElementById("newProjectName").value = "";
@@ -123,7 +124,7 @@ function clearForm() {
     document.getElementById("newObservations").value = "";
 }
 
-// Verificar si el administrador está logueado al cargar la página
+// Función que se ejecuta cuando el DOM se ha cargado
 document.addEventListener("DOMContentLoaded", () => {
     checkAdminStatus();
     loadProjects();
