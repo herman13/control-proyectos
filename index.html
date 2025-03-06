@@ -40,12 +40,14 @@
         </table>
     </div>
 
+    <!-- Formulario de inicio de sesión de administrador -->
     <div id="adminLogin" style="display:none;">
         <h2>Iniciar Sesión Administrador</h2>
         <input type="password" id="adminPassword" placeholder="Contraseña">
         <button onclick="loginAdmin()">Entrar</button>
     </div>
 
+    <!-- Panel de administrador para agregar proyectos -->
     <div id="adminPanel" style="display:none;">
         <h2>Agregar Nuevo Proyecto</h2>
         <input type="text" id="newFolderNumber" placeholder="N° Carpeta">
@@ -59,6 +61,8 @@
         <button onclick="addProject()">Agregar Proyecto</button>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <script src="script.js"></script> <!-- Enlace al archivo JavaScript -->
 </body>
 </html>
