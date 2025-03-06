@@ -13,12 +13,13 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const auth = firebase.auth();
 
+// Declarar la variable de autenticación antes de usarla
 let adminAuthenticated = false;
 
 // Función de login de administrador
 function login() {
     const password = document.getElementById('admin-password').value;
-    if (password === "tu-contraseña-secreta") {
+    if (password === "miContraseñaSegura123") {
         adminAuthenticated = true;
         document.getElementById('login-form').classList.add('hidden');
         document.getElementById('project-form').classList.remove('hidden');
@@ -101,3 +102,4 @@ function editProject(id) {
         });
     }
 }
+
