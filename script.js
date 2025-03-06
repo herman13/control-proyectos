@@ -1,68 +1,56 @@
-// Definir la función showAdminLogin() para mostrar el formulario de login del administrador
-function showAdminLogin() {
-    // Mostrar la sección de login y ocultar el panel de administración
-    document.getElementById("adminLogin").style.display = "block";
-    document.getElementById("adminPanel").style.display = "none";
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
 }
 
-// Función para iniciar sesión como administrador
-function loginAdmin() {
-    // Obtener la contraseña ingresada por el administrador
-    const adminPassword = document.getElementById("adminPassword").value;
-
-    // Aquí debes reemplazar 'admin123' por la contraseña real
-    const correctPassword = "admin123"; // Cambiar por la contraseña real
-
-    // Verificar si la contraseña es correcta
-    if (adminPassword === correctPassword) {
-        // Mostrar el panel de administración y ocultar el login
-        document.getElementById("adminPanel").style.display = "block";
-        document.getElementById("adminLogin").style.display = "none";
-    } else {
-        // Si la contraseña es incorrecta, mostrar un mensaje de error
-        alert("Contraseña incorrecta");
-    }
+.container {
+    width: 80%;
+    max-width: 600px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-// Función para agregar un nuevo proyecto
-function addProject() {
-    const folderNumber = document.getElementById("newFolderNumber").value;
-    const projectName = document.getElementById("newProjectName").value;
-    const client = document.getElementById("newClient").value;
-    const requester = document.getElementById("newRequester").value;
-    const assignmentDate = document.getElementById("newAssignmentDate").value;
-    const deliveryDate = document.getElementById("newDeliveryDate").value;
-    const status = document.getElementById("newStatus").value;
-    const observations = document.getElementById("newObservations").value;
-
-    // Crear una nueva fila en la tabla con los valores del proyecto
-    const table = document.getElementById("projectsTable");
-    const newRow = table.insertRow();
-    newRow.innerHTML = `
-        <td>${folderNumber}</td>
-        <td>${projectName}</td>
-        <td>${client}</td>
-        <td>${requester}</td>
-        <td>${assignmentDate}</td>
-        <td>${deliveryDate}</td>
-        <td>${status}</td>
-        <td>${observations}</td>
-        <td><button onclick="deleteProject(this)">Eliminar</button></td>
-    `;
-
-    // Limpiar los campos después de agregar el proyecto
-    document.getElementById("newFolderNumber").value = "";
-    document.getElementById("newProjectName").value = "";
-    document.getElementById("newClient").value = "";
-    document.getElementById("newRequester").value = "";
-    document.getElementById("newAssignmentDate").value = "";
-    document.getElementById("newDeliveryDate").value = "";
-    document.getElementById("newStatus").value = "";
-    document.getElementById("newObservations").value = "";
+h1, h2 {
+    text-align: center;
 }
 
-// Función para eliminar un proyecto de la tabla
-function deleteProject(button) {
-    const row = button.closest("tr");
-    row.remove();
+input, textarea, button {
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.hidden {
+    display: none;
+}
+
+#projects-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#projects-list li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #e9ecef;
+    border-radius: 4px;
 }
